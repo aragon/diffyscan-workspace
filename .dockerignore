@@ -1,0 +1,7 @@
+.env
+.local
+.cache
+.bash_history
+.viminfo
+digest
+config
