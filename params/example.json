@@ -4,7 +4,7 @@
     "0x823546Acfb4ed490a37488391676859F1BE135B6": "PluginRepoFactory"
   },
   "explorer_hostname": "api-sepolia.etherscan.io",
-  "explorer_token_env_var": "...",
+  "explorer_token_env_var": "--- CHANGE THIS VALUE ---",
   "github_repo": {
     "url": "https://github.com/aragon/osx",
     "commit": "423014c01ebd49f24f8c82646540fe49309a6e9e",
@@ -34,7 +34,7 @@
   },
   "fail_on_comparison_error": true,
   "bytecode_comparison": {
-    "hardhat_config_name": "sepolia_hardhat.config.js",
+    "hardhat_config_name": "hardhat/sepolia-config.js",
     "constructor_calldata": {},
     "constructor_args": {}
   }
