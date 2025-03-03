@@ -32,6 +32,7 @@ init: .env ##     Check the dependencies and prepare the Docker image
 .PHONY: clean
 clean: ##    Clean the generated artifacts
 	docker image rm diffyscan || true
+	rm -Rf ./digest
 
 : ## 
 
@@ -57,6 +58,14 @@ check: $(DIFFYSCAN_PARAMS_FILE)
 		-v ./digest:/workspace/digest \
 		diffyscan $(DIFFYSCAN_PARAMS_FILE)
 	@echo "Check the diff outputs on ./digest/$$(ls -t digest/ | head -n 1)"
+	@which xdg-open && xdg-open ./digest/$$(ls -t digest/ | head -n 1)
+	@which open && open ./digest/$$(ls -t digest/ | head -n 1)
+	@echo "Detected differences:"
+	@cat ./digest/$$(ls -t digest/ | head -n 1)/logs.txt | \
+		grep "^│" | \
+		grep -v " │ 0     │ " | \
+		grep -v "Filename" | \
+		cut -d'│' -f3 | awk '{print$1}' | sort | uniq
 
 # Generate the params file for diffyscan
 .PHONY: $(DIFFYSCAN_PARAMS_FILE)
