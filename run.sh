@@ -22,4 +22,4 @@ then
   exit 1
 fi
 
-/app/.local/bin/diffyscan $1
+/root/.local/bin/diffyscan $1

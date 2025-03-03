@@ -16,7 +16,7 @@ DIFFYSCAN_PARAMS_FILE = ./params/diffyscan.json
 .PHONY: help
 help:
 	@echo "Available targets:"
-	@cat Makefile networks.mk | grep -E '^[a-zA-Z0-9_-]*:.*?## .*$$' \
+	@grep -E '^[a-zA-Z0-9_-]*:.*?## .*$$' Makefile \
 		| sed -n 's/^\(.*\): \(.*\)##\(.*\)/- make \1  \3/p' \
 		| sed 's/^- make    $$//g'
 	@for nw in $(SUPPORTED_NETWORKS); do echo "- make check-$$nw    Check the deployment from params/$$nw-deployment.json"; done
@@ -51,7 +51,12 @@ $(foreach network,$(SUPPORTED_NETWORKS),\
 .PHONY: check
 check: $(DIFFYSCAN_PARAMS_FILE)
 	$(call check_network,$(NETWORK))
-	docker run --rm -it -v .:/app/ diffyscan $(DIFFYSCAN_PARAMS_FILE)
+	docker run --rm -it \
+		-v ./.env:/workspace/.env:ro \
+		-v ./params/diffyscan.json:/workspace/params/diffyscan.json:ro \
+		-v ./digest:/workspace/digest \
+		diffyscan $(DIFFYSCAN_PARAMS_FILE)
+	@echo "Check the diff outputs on ./digest/$$(ls -t digest/ | head -n 1)"
 
 # Generate the params file for diffyscan
 .PHONY: $(DIFFYSCAN_PARAMS_FILE)
