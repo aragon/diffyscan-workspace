@@ -1,7 +1,10 @@
 {
   "contracts": {
-    "0x1957e052B9DfeF53d4FcB22f6372F8ea41049Ba1": "DAOFactory",
-    "0x823546Acfb4ed490a37488391676859F1BE135B6": "PluginRepoFactory"
+    "0xB815791c233807D39b7430127975244B36C19C8e": "DAOFactory",
+    "0x399Ce2a71ef78bE6890EB628384dD09D4382a7f0": "PluginRepoFactory",
+    "0xFcaBf5b75473447E4fde4043F8255B2DAdbF0782": "DAORegistry",
+    "0x9148970d7C54FEF15565c1b6C41195d92962CA23": "PluginRepoRegistry",
+    "0x824d4AAD1cbF2327c4C429E3c97F968Ee19344F8": "DAO"
   },
   "explorer_hostname": "api-sepolia.etherscan.io",
   "explorer_token_env_var": "--- This value is automatically filled from .env ---",
