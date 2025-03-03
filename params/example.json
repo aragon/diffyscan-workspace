@@ -4,7 +4,7 @@
     "0x823546Acfb4ed490a37488391676859F1BE135B6": "PluginRepoFactory"
   },
   "explorer_hostname": "api-sepolia.etherscan.io",
-  "explorer_token_env_var": "--- CHANGE THIS VALUE ---",
+  "explorer_token_env_var": "--- This value is automatically filled from .env ---",
   "github_repo": {
     "url": "https://github.com/aragon/osx",
     "commit": "423014c01ebd49f24f8c82646540fe49309a6e9e",
