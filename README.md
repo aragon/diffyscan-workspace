@@ -15,8 +15,8 @@ Available targets:
 - make init       Check the dependencies and prepare the Docker image
 - make clean      Clean the generated artifacts
 
-- make check-sepolia    Check the deployment from params/sepolia-deployment.json
-- make check-holesky    Check the deployment from params/holesky-deployment.json
+- make osx-sepolia    Verify using deployments/osx-sepolia.json
+- make osx-holesky    Verify using deployments/osx-holesky.json
 ```
 
 ### Initialization
@@ -31,7 +31,7 @@ make init
 
 Copy `.env.example` into `.env` and define the required values.
 
-Given the network that you are targetting, define the intended parameters on a file named like `params/<network>-deployment.json`:
+Given the network that you are targetting, define the intended parameters on a file named like `deployments/<target>.json`:
 
 ```json
 {
@@ -55,20 +55,20 @@ Given the network that you are targetting, define the intended parameters on a f
 }
 ```
 
-Ensure that the file referenced by `hardhat_config_name` (`hardhat/*-config.js`) corresponds to your target network.
+Ensure that the file referenced by `hardhat_config_name` (`hardhat/<network>-config.js`) corresponds to your target network.
 
 ## Run it
 
-Run the tool with your configuration:
+Run make with your target deployment to verify:
 
 ```sh
-make check-sepolia
+make osx-sepolia
 ```
 
 ## Adding new networks
 
-Edit `Makefile` and add a new network entry to `SUPPORTED_NETWORKS`. 
+Edit `deployments.mk` and add a new network entry to `AVAILABLE_DEPLOYMENTS`. 
 
-If you run `make help` you will see a new target for it.
+Run `make help` and check that the new deployment appears.
 
-Copy `params/example.json` and adapt it into a new file named like `params/<network>-deployment.json`.
+Copy `deployments/example.json` into a new file under `deployments/<deployment-name>.json` and adapt it to contain the relevant values for the new deployment.

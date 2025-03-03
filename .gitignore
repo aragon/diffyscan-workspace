@@ -4,4 +4,4 @@
 .bash_history
 .viminfo
 digest
-params/diffyscan.json
+diffyscan-params.json

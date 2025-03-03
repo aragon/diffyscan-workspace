@@ -1,15 +1,13 @@
 .DEFAULT_TARGET: help
 
-# Import the .env files and export their values (ignore any error if missing)
--include .env
-
-# ADD NET NETWORKS HERE:
-SUPPORTED_NETWORKS := sepolia holesky
+# Import the .env files and export their values
+include .env
+include deployments.mk
 
 SHELL:=/bin/bash
-check_network = $(if $(findstring $(1),$(SUPPORTED_NETWORKS)),,$(error "Invalid network: $(1). Allowed networks are: $(SUPPORTED_NETWORKS)"))
-check_file_exists = $(if $(wildcard $(1)),,$(error "Required file not found: $(1)"))
-DIFFYSCAN_PARAMS_FILE = ./params/diffyscan.json
+validate_deployment = $(if $(findstring $(1),$(AVAILABLE_DEPLOYMENTS)),,$(error "Invalid deployment target: $(1). The allowed deployment targets are: $(AVAILABLE_DEPLOYMENTS)"))
+ensure_file = $(if $(wildcard $(1)),,$(error "Required file not found: $(1)"))
+DIFFYSCAN_PARAMS_FILE = ./diffyscan-params.json
 
 # TARGETS
 
@@ -19,7 +17,7 @@ help:
 	@grep -E '^[a-zA-Z0-9_-]*:.*?## .*$$' Makefile \
 		| sed -n 's/^\(.*\): \(.*\)##\(.*\)/- make \1  \3/p' \
 		| sed 's/^- make    $$//g'
-	@for nw in $(SUPPORTED_NETWORKS); do echo "- make check-$$nw    Check the deployment from params/$$nw-deployment.json"; done
+	@for dep in $(AVAILABLE_DEPLOYMENTS); do echo "- make $$dep    Verify using deployments/$$dep.json"; done
 
 : ## 
 
@@ -36,41 +34,51 @@ clean: ##    Clean the generated artifacts
 
 : ## 
 
-# Generate dynamic rules for each supported network:
+# Generate dynamic rules for each supported deployment:
 
-# check-sepolia: export NETWORK=sepolia
-# check-sepolia: export DEPLOYMENT_PARAMS_FILE=params/sepolia-deployment.json
-# check-sepolia: check
+# sepolia: export NETWORK=sepolia
+# sepolia: export DEPLOYMENT_PARAMS_FILE=deployments/sepolia.json
+# sepolia: check
 
-$(foreach network,$(SUPPORTED_NETWORKS),\
-    $(eval check-$(network): export NETWORK = $(network))\
-    $(eval check-$(network): export DEPLOYMENT_PARAMS_FILE = params/$(network)-deployment.json)\
-    $(eval check-$(network): check)\
+$(foreach network,$(AVAILABLE_DEPLOYMENTS),\
+    $(eval $(network): export NETWORK = $(network))\
+    $(eval $(network): export DEPLOYMENT_PARAMS_FILE = deployments/$(network).json)\
+    $(eval $(network): check)\
 )
 
 # Main target (hidden)
 .PHONY: check
 check: $(DIFFYSCAN_PARAMS_FILE)
-	$(call check_network,$(NETWORK))
-	docker run --rm -it \
-		-v ./.env:/workspace/.env:ro \
-		-v ./params/diffyscan.json:/workspace/params/diffyscan.json:ro \
-		-v ./digest:/workspace/digest \
-		diffyscan $(DIFFYSCAN_PARAMS_FILE)
-	@echo "Check the diff outputs on ./digest/$$(ls -t digest/ | head -n 1)"
-	@which xdg-open && xdg-open ./digest/$$(ls -t digest/ | head -n 1)
-	@which open && open ./digest/$$(ls -t digest/ | head -n 1)
-	@echo "Detected differences:"
-	@cat ./digest/$$(ls -t digest/ | head -n 1)/logs.txt | \
-		grep "^│" | \
-		grep -v " │ 0     │ " | \
-		grep -v "Filename" | \
-		cut -d'│' -f3 | awk '{print$1}' | sort | uniq
+	$(call validate_deployment,$(NETWORK))
+	#docker run --rm -it \
+	#	-v ./.env:/workspace/.env:ro \
+	#	-v ./$(DIFFYSCAN_PARAMS_FILE):/workspace/$(DIFFYSCAN_PARAMS_FILE):ro \
+	#	-v ./digest:/workspace/digest \
+	#	diffyscan $(DIFFYSCAN_PARAMS_FILE)
+
+	output_path="./digest/$$(ls -t digest/ | head -n 1)" ; \
+	echo ; \
+	echo "Checking the diffs on $$output_path" ; \
+	list_diffs() { \
+		cat $$output_path/logs.txt | \
+			grep "^│" | \
+			grep -v " │ 0     │ " | \
+			grep -v "Filename" | \
+			cut -d'│' -f3 | awk '{print $$1}' | sort | uniq ; \
+	} ; \
+	mismatches=$$(list_diffs | xargs echo) ; \
+	if [ -z "$$mismatches" ] ; then exit; fi ; \
+	echo -e -n "Files with differences:\n- " ; \
+	echo $$mismatches ; \
+	echo ; \
+	diffs=$$(find $$output_path/diffs | grep -E "\b($$(echo $$mismatches | tr ' ' '|'))\b") ; \
+	echo -n "Do you want to open them? (y/N) " ; read cont ; \
+	[ "$$cont" == "y" ] && open $$diffs || true
 
 # Generate the params file for diffyscan
 .PHONY: $(DIFFYSCAN_PARAMS_FILE)
 $(DIFFYSCAN_PARAMS_FILE):
-	$(call check_file_exists,$(DEPLOYMENT_PARAMS_FILE))
+	$(call ensure_file,$(DEPLOYMENT_PARAMS_FILE))
 	@echo "Reading deployment parameters from $(DEPLOYMENT_PARAMS_FILE)"
 	@echo "Merging 'explorer_token_env_var' onto $(@)"
 	jq '.explorer_token_env_var = $(ETHERSCAN_EXPLORER_TOKEN)' $(DEPLOYMENT_PARAMS_FILE) > $(@)
