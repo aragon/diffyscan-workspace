@@ -2,15 +2,30 @@
 
 ## Get started
 
+Ensure that you have `make` installed on your system:
+
+```sh
+$ make
+Available targets:
+
+- make init       Check the dependencies and prepare the Docker image
+- make clean      Clean the generated artifacts
+
+- make sepolia    Check the deployment from params/sepolia-deployment.json
+- make holesky    Check the deployment from params/holesky-deployment.json
+```
+
+### Initialization
+
 Prepare a Docker image with the up to date image.
 
 ```sh
-docker build -t diffyscan .
+make init
 ```
 
-## Deployment parameters
+### Define the deployment parameters
 
-Verify or addapt the configuration on `params/example.json`:
+Edit the parameters on a file named like `params/<network>-deployment.json`, containing the intended parameters:
 
 ```json
 {
@@ -43,3 +58,11 @@ Run the tool with your configuration:
 ```sh
 docker run --rm -it -v .:/app/ diffyscan params/*sepolia.json
 ```
+
+## Adding new networks
+
+Edit `Makefile` and add a new network entry to `SUPPORTED_NETWORKS`. 
+
+If you run `make help` you will see a new target for it.
+
+Copy `params/example.json` and adapt it into a new file named like `params/<network>-deployment.json`.
