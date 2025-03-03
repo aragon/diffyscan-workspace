@@ -7,7 +7,7 @@ include deployments.mk
 SHELL:=/bin/bash
 validate_deployment = $(if $(findstring $(1),$(AVAILABLE_DEPLOYMENTS)),,$(error "Invalid deployment target: $(1). The allowed deployment targets are: $(AVAILABLE_DEPLOYMENTS)"))
 ensure_file = $(if $(wildcard $(1)),,$(error "Required file not found: $(1)"))
-DIFFYSCAN_PARAMS_FILE = ./diffyscan-params.json
+DIFFYSCAN_PARAMS_FILE = diffyscan-params.json
 
 # TARGETS
 
@@ -50,13 +50,13 @@ $(foreach network,$(AVAILABLE_DEPLOYMENTS),\
 .PHONY: check
 check: $(DIFFYSCAN_PARAMS_FILE)
 	$(call validate_deployment,$(NETWORK))
-	#docker run --rm -it \
-	#	-v ./.env:/workspace/.env:ro \
-	#	-v ./$(DIFFYSCAN_PARAMS_FILE):/workspace/$(DIFFYSCAN_PARAMS_FILE):ro \
-	#	-v ./digest:/workspace/digest \
-	#	diffyscan $(DIFFYSCAN_PARAMS_FILE)
+	docker run --rm -it \
+		-v ./.env:/workspace/.env:ro \
+		-v ./$(DIFFYSCAN_PARAMS_FILE):/workspace/$(DIFFYSCAN_PARAMS_FILE):ro \
+		-v ./digest:/workspace/digest \
+		diffyscan $(DIFFYSCAN_PARAMS_FILE)
 
-	output_path="./digest/$$(ls -t digest/ | head -n 1)" ; \
+	@output_path="./digest/$$(ls -t digest/ | head -n 1)" ; \
 	echo ; \
 	echo "Checking the diffs on $$output_path" ; \
 	list_diffs() { \
