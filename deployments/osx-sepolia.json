@@ -4,8 +4,7 @@
     "0x399Ce2a71ef78bE6890EB628384dD09D4382a7f0": "PluginRepoFactory",
     "0xFcaBf5b75473447E4fde4043F8255B2DAdbF0782": "DAORegistry",
     "0x9148970d7C54FEF15565c1b6C41195d92962CA23": "PluginRepoRegistry",
-    "0x824d4AAD1cbF2327c4C429E3c97F968Ee19344F8": "DAO",
-    "0xC24188a73dc09aA7C721f96Ad8857B469C01dC9f": "PluginSetupProcessor"
+    "0x824d4AAD1cbF2327c4C429E3c97F968Ee19344F8": "DAO"
   },
   "explorer_hostname": "api-sepolia.etherscan.io",
   "github_repo": {

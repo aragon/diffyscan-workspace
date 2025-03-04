@@ -17,45 +17,23 @@ help:
 	@grep -E '^[a-zA-Z0-9_-]*:.*?## .*$$' Makefile \
 		| sed -n 's/^\(.*\): \(.*\)##\(.*\)/- make \1  \3/p' \
 		| sed 's/^- make    $$//g'
-	@for dep in $(AVAILABLE_DEPLOYMENTS); do echo "- make $$dep    Verify using deployments/$$dep.json"; done
+	@for dep in $(AVAILABLE_DEPLOYMENTS); do echo -e "- make $$dep\t    Verify using deployments/$$dep.json"; done
 
 : ## 
 
 .PHONY: init
-init: .env ##     Check the dependencies and prepare the Docker image
+init: .env ##            Check the dependencies and prepare the Docker image
 	@which docker > /dev/null || (echo "Error: Docker is not installed" ; exit 1)
 	@which jq > /dev/null || (echo "Error: jq is not installed" ; exit 1)
 	docker build -t diffyscan .
 
 .PHONY: clean
-clean: ##    Clean the generated artifacts
+clean: ##           Clean the generated artifacts
 	docker image rm diffyscan || true
 	rm -Rf ./digest
 
-: ## 
-
-# Generate dynamic rules for each supported deployment:
-
-# sepolia: export NETWORK=sepolia
-# sepolia: export DEPLOYMENT_PARAMS_FILE=deployments/sepolia.json
-# sepolia: check
-
-$(foreach network,$(AVAILABLE_DEPLOYMENTS),\
-    $(eval $(network): export NETWORK = $(network))\
-    $(eval $(network): export DEPLOYMENT_PARAMS_FILE = deployments/$(network).json)\
-    $(eval $(network): check)\
-)
-
-# Main target (hidden)
-.PHONY: check
-check: $(DIFFYSCAN_PARAMS_FILE)
-	$(call validate_deployment,$(NETWORK))
-	docker run --rm -it \
-		-v ./.env:/workspace/.env:ro \
-		-v ./$(DIFFYSCAN_PARAMS_FILE):/workspace/$(DIFFYSCAN_PARAMS_FILE):ro \
-		-v ./digest:/workspace/digest \
-		diffyscan $(DIFFYSCAN_PARAMS_FILE)
-
+.PHONY: diff-summary
+diff-summary: ##    Show the detected mismatches on the latest run under ./digest
 	@output_path="./digest/$$(ls -t digest/ | head -n 1)" ; \
 	echo ; \
 	echo "Checking the diffs on $$output_path" ; \
@@ -74,6 +52,35 @@ check: $(DIFFYSCAN_PARAMS_FILE)
 	diffs=$$(find $$output_path/diffs | grep -E "\b($$(echo $$mismatches | tr ' ' '|'))\b") ; \
 	echo -n "Do you want to open them? (y/N) " ; read cont ; \
 	[ "$$cont" == "y" ] && open $$diffs || true
+
+: ## 
+
+# Generate dynamic rules for each supported deployment:
+
+# sepolia: export NETWORK=sepolia
+# sepolia: export DEPLOYMENT_PARAMS_FILE=deployments/sepolia.json
+# sepolia: check
+
+$(foreach network,$(AVAILABLE_DEPLOYMENTS),\
+    $(eval $(network): export NETWORK = $(network))\
+    $(eval $(network): export DEPLOYMENT_PARAMS_FILE = deployments/$(network).json)\
+    $(eval $(network): check)\
+)
+
+## INTERNAL TARGETS
+
+# Main target
+.PHONY: check
+check: $(DIFFYSCAN_PARAMS_FILE)
+	$(call validate_deployment,$(NETWORK))
+	@# Launch Docker. Output a new line to make Python continue after each contract is checked
+	yes "" | head -n $$(jq ".contracts | length" $(DIFFYSCAN_PARAMS_FILE)) | docker run --rm -i \
+		-v ./.env:/workspace/.env:ro \
+		-v ./$(DIFFYSCAN_PARAMS_FILE):/workspace/$(DIFFYSCAN_PARAMS_FILE):ro \
+		-v ./digest:/workspace/digest \
+		diffyscan $(DIFFYSCAN_PARAMS_FILE)
+
+	make diff-summary
 
 # Generate the params file for diffyscan
 .PHONY: $(DIFFYSCAN_PARAMS_FILE)

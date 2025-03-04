@@ -12,11 +12,15 @@ Ensure that you have `make` installed on your system:
 $ make
 Available targets:
 
-- make init       Check the dependencies and prepare the Docker image
-- make clean      Clean the generated artifacts
+- make init              Check the dependencies and prepare the Docker image
+- make clean             Clean the generated artifacts
+- make diff-summary      Show the detected mismatches on the latest run under ./digest
 
-- make osx-sepolia    Verify using deployments/osx-sepolia.json
-- make osx-holesky    Verify using deployments/osx-holesky.json
+- make osx-sepolia	    Verify using deployments/osx-sepolia.json
+- make admin-sepolia	    Verify using deployments/admin-sepolia.json
+- make multisig-sepolia	    Verify using deployments/multisig-sepolia.json
+- make spp-sepolia	    Verify using deployments/spp-sepolia.json
+- make token-voting-sepolia	    Verify using deployments/token-voting-sepolia.json
 ```
 
 ### Initialization
@@ -67,7 +71,7 @@ make osx-sepolia
 
 ## Adding new networks
 
-Edit `deployments.mk` and add a new network entry to `AVAILABLE_DEPLOYMENTS`. 
+Edit `deployments.mk` and add a new network entry to `AVAILABLE_DEPLOYMENTS`.
 
 Run `make help` and check that the new deployment appears.
 
