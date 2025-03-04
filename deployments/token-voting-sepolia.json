@@ -1,16 +1,14 @@
 {
   "contracts": {
-    "0xB815791c233807D39b7430127975244B36C19C8e": "DAOFactory",
-    "0x399Ce2a71ef78bE6890EB628384dD09D4382a7f0": "PluginRepoFactory",
-    "0xFcaBf5b75473447E4fde4043F8255B2DAdbF0782": "DAORegistry",
-    "0x9148970d7C54FEF15565c1b6C41195d92962CA23": "PluginRepoRegistry",
-    "0x824d4AAD1cbF2327c4C429E3c97F968Ee19344F8": "DAO",
-    "0xC24188a73dc09aA7C721f96Ad8857B469C01dC9f": "PluginSetupProcessor"
+    "0x3b4D91ed7F1A8a2648Cc72E8dE31f0d35A4f9A65": "TokenVoting",
+    "0x7870837ffe670E62d4e601393D454f1b8649F7f9": "TokenVotingSetup",
+    "0xC8109e7B790346F662C6e4ef2bA863a9700cA8Eb": "GovernanceERC",
+    "0xd8C229F3644576b200319cB3919B0E87716f47d8": "GovernanceWrappedERC"
   },
   "explorer_hostname": "api-sepolia.etherscan.io",
   "github_repo": {
-    "url": "https://github.com/aragon/osx",
-    "commit": "fc7403fcef660aa952c7e635e95257ee7f466efb",
+    "url": "https://github.com/aragon/token-voting-plugin",
+    "commit": "9eb9b15986db2fcb9a02c89e3aa99fe8c0292a1c",
     "relative_root": "packages/contracts"
   },
   "dependencies": {
