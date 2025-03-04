@@ -74,7 +74,8 @@ $(foreach network,$(AVAILABLE_DEPLOYMENTS),\
 check: $(DIFFYSCAN_PARAMS_FILE)
 	$(call validate_deployment,$(NETWORK))
 	@# Launch Docker. Output a new line to make Python continue after each contract is checked
-	yes "" | head -n $$(jq ".contracts | length" $(DIFFYSCAN_PARAMS_FILE)) | docker run --rm -i \
+	yes "" | head -n $$(jq ".contracts | length" $(DIFFYSCAN_PARAMS_FILE)) | \
+	   docker run --rm -i \
 		-v ./.env:/workspace/.env:ro \
 		-v ./$(DIFFYSCAN_PARAMS_FILE):/workspace/$(DIFFYSCAN_PARAMS_FILE):ro \
 		-v ./digest:/workspace/digest \

@@ -5,9 +5,9 @@
   },
   "explorer_hostname": "api-sepolia.etherscan.io",
   "github_repo": {
-    "url": "https://github.com/aragon/token-voting-plugin",
+    "url": "https://github.com/aragon/staged-proposal-processor-plugin",
     "commit": "b480f34c40390a929a2c9259d161fc36c88ac419",
-    "relative_root": "packages/contracts"
+    "relative_root": ""
   },
   "dependencies": {
     "@aragon/osx-commons-contracts": {
