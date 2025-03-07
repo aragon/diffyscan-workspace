@@ -6,4 +6,4 @@ RUN pipx install git+https://github.com/lidofinance/diffyscan
 ADD run.sh /root
 WORKDIR /workspace
 
-ENTRYPOINT [ "/root/run.sh" ]
+CMD [ "/root/run.sh", "./diffyscan-params.json" ]

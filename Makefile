@@ -50,6 +50,7 @@ diff-summary: ##    Show the detected mismatches on the latest run under ./diges
 	echo $$mismatches ; \
 	echo ; \
 	diffs=$$(find $$output_path/diffs | grep -E "\b($$(echo $$mismatches | tr ' ' '|'))\b") ; \
+	echo $$diffs | (while read f ; do echo -e "- $$f\n" ; done) ; \
 	echo -n "Do you want to open them? (y/N) " ; read cont ; \
 	[ "$$cont" == "y" ] && open $$diffs || true
 
@@ -57,14 +58,14 @@ diff-summary: ##    Show the detected mismatches on the latest run under ./diges
 
 # Generate dynamic rules for each supported deployment:
 
-# sepolia: export NETWORK=sepolia
-# sepolia: export DEPLOYMENT_PARAMS_FILE=deployments/sepolia.json
+# sepolia: export DEPLOYMENT=osx-sepolia
+# sepolia: export DEPLOYMENT_PARAMS_FILE=deployments/osx-sepolia.json
 # sepolia: check
 
-$(foreach network,$(AVAILABLE_DEPLOYMENTS),\
-    $(eval $(network): export NETWORK = $(network))\
-    $(eval $(network): export DEPLOYMENT_PARAMS_FILE = deployments/$(network).json)\
-    $(eval $(network): check)\
+$(foreach deployment,$(AVAILABLE_DEPLOYMENTS),\
+    $(eval $(deployment): export DEPLOYMENT = $(deployment))\
+    $(eval $(deployment): export DEPLOYMENT_PARAMS_FILE = deployments/$(deployment).json)\
+    $(eval $(deployment): check)\
 )
 
 ## INTERNAL TARGETS
@@ -72,14 +73,14 @@ $(foreach network,$(AVAILABLE_DEPLOYMENTS),\
 # Main target
 .PHONY: check
 check: $(DIFFYSCAN_PARAMS_FILE)
-	$(call validate_deployment,$(NETWORK))
+	$(call validate_deployment,$(DEPLOYMENT))
 	@# Launch Docker. Output a new line to make Python continue after each contract is checked
 	yes "" | head -n $$(jq ".contracts | length" $(DIFFYSCAN_PARAMS_FILE)) | \
 	   docker run --rm -i \
 		-v ./.env:/workspace/.env:ro \
 		-v ./$(DIFFYSCAN_PARAMS_FILE):/workspace/$(DIFFYSCAN_PARAMS_FILE):ro \
 		-v ./digest:/workspace/digest \
-		diffyscan $(DIFFYSCAN_PARAMS_FILE)
+		diffyscan
 
 	make diff-summary
 
