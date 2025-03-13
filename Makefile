@@ -12,14 +12,18 @@ DIFFYSCAN_PARAMS_FILE = diffyscan-params.json
 # TARGETS
 
 .PHONY: help
-help:
+help: ## Display the current message
 	@echo "Available targets:"
-	@grep -E '^[a-zA-Z0-9_-]*:.*?## .*$$' Makefile \
-		| sed -n 's/^\(.*\): \(.*\)##\(.*\)/- make \1  \3/p' \
-		| sed 's/^- make    $$//g'
+	@cat Makefile | while IFS= read -r line; do \
+	   if [[ "$$line" == "##" ]]; then \
+			echo "" ; \
+		elif [[ "$$line" =~ ^([^:]+):(.*)##\ (.*)$$ ]]; then \
+			echo -e "- make $${BASH_REMATCH[1]}    \t$${BASH_REMATCH[3]}" ; \
+		fi ; \
+	done
 	@for dep in $(AVAILABLE_DEPLOYMENTS); do echo -e "- make $$dep\t    Verify using deployments/$$dep.json"; done
 
-: ## 
+##
 
 .PHONY: init
 init: .env ##            Check the dependencies and prepare the Docker image
@@ -54,7 +58,7 @@ diff-summary: ##    Show the detected mismatches on the latest run under ./diges
 	echo -n "Do you want to open them? (y/N) " ; read cont ; \
 	[ "$$cont" == "y" ] && open $$diffs || true
 
-: ## 
+##
 
 # Generate dynamic rules for each supported deployment:
 

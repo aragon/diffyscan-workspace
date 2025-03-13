@@ -11,16 +11,17 @@ Ensure that you have `make` installed on your system:
 ```sh
 $ make
 Available targets:
+- make help       Display the current message
 
-- make init              Check the dependencies and prepare the Docker image
-- make clean             Clean the generated artifacts
-- make diff-summary      Show the detected mismatches on the latest run under ./digest
+- make init               Check the dependencies and prepare the Docker image
+- make clean              Clean the generated artifacts
+- make diff-summary       Show the detected mismatches on the latest run under ./digest
 
-- make osx-sepolia	    Verify using deployments/osx-sepolia.json
-- make admin-sepolia	    Verify using deployments/admin-sepolia.json
-- make multisig-sepolia	    Verify using deployments/multisig-sepolia.json
-- make spp-sepolia	    Verify using deployments/spp-sepolia.json
-- make token-voting-sepolia	    Verify using deployments/token-voting-sepolia.json
+- make osx-sepolia        Verify using deployments/osx-sepolia.json
+- make admin-sepolia      Verify using deployments/admin-sepolia.json
+- make multisig-sepolia   Verify using deployments/multisig-sepolia.json
+- make spp-sepolia        Verify using deployments/spp-sepolia.json
+- make token-voting-sepolia         Verify using deployments/token-voting-sepolia.json
 ```
 
 ### Initialization
