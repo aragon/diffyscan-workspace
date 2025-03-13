@@ -1,11 +1,10 @@
 {
   "contracts": {
-    "0x908BB81ABeb86FfEa97f1b95b59c4AA8E71d84aA": "Multisig",
     "0x58cd7d773389F68250338C13A1BB5662CFBd0C9A": "MultisigSetup"
   },
   "explorer_hostname": "api-sepolia.etherscan.io",
   "github_repo": {
-    "url": "https://github.com/aragon/token-voting-plugin",
+    "url": "https://github.com/aragon/multisig-plugin",
     "commit": "69874ebe11efd0e9687ba24a7e04ba7fac08012d",
     "relative_root": "packages/contracts"
   },

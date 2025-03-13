@@ -1,8 +1,8 @@
 {
   "contracts": {
-    "0xda2bAb5554a6f5e655cD0A1B46dcAFBb39742334": "AdminSetup"
+    "0x898084951Ce9A625Fba9FCfC364211D3e3596bc7": "AdminSetupZkSync"
   },
-  "explorer_hostname": "api-sepolia.etherscan.io",
+  "explorer_hostname": "api-zksyncsepolia.etherscan.io",
   "github_repo": {
     "url": "https://github.com/aragon/admin-plugin",
     "commit": "81db7a26668551a91077fcc23efc10dd937fcfe7",
@@ -32,7 +32,7 @@
   },
   "fail_on_comparison_error": true,
   "bytecode_comparison": {
-    "hardhat_config_name": "hardhat/sepolia-config.js",
+    "hardhat_config_name": "hardhat/zksyncsepolia-config.js",
     "constructor_calldata": {},
     "constructor_args": {}
   }

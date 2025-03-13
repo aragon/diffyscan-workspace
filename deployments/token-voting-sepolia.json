@@ -1,9 +1,6 @@
 {
   "contracts": {
-    "0x3b4D91ed7F1A8a2648Cc72E8dE31f0d35A4f9A65": "TokenVoting",
-    "0x7870837ffe670E62d4e601393D454f1b8649F7f9": "TokenVotingSetup",
-    "0xC8109e7B790346F662C6e4ef2bA863a9700cA8Eb": "GovernanceERC20",
-    "0xd8C229F3644576b200319cB3919B0E87716f47d8": "GovernanceWrappedERC20"
+    "0x7870837ffe670E62d4e601393D454f1b8649F7f9": "TokenVotingSetup"
   },
   "explorer_hostname": "api-sepolia.etherscan.io",
   "github_repo": {

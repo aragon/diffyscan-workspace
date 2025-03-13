@@ -1,11 +1,15 @@
 {
   "contracts": {
-    "0xda2bAb5554a6f5e655cD0A1B46dcAFBb39742334": "AdminSetup"
+    "0x9BC7f1dc3cFAD56a0EcD924D1f9e70f5C7aF0039": "DAOFactory",
+    "0xdD9a458088B24ed90a4BfacD16e761b01Bb56FB3": "PluginRepoFactory",
+    "0xF85b3323268431672a035E54b4DD05a5c6ee6D18": "DAORegistry",
+    "0x3ef9965BEC1D2222aee22D30b4f870fEB05c2Ee1": "PluginRepoRegistry",
+    "0xDC5E714720797Fa0B453Bc9eF5049548C79031C3": "DAO"
   },
-  "explorer_hostname": "api-sepolia.etherscan.io",
+  "explorer_hostname": "api.polygonscan.com",
   "github_repo": {
-    "url": "https://github.com/aragon/admin-plugin",
-    "commit": "81db7a26668551a91077fcc23efc10dd937fcfe7",
+    "url": "https://github.com/aragon/osx",
+    "commit": "fc7403fcef660aa952c7e635e95257ee7f466efb",
     "relative_root": "packages/contracts"
   },
   "dependencies": {
@@ -32,7 +36,7 @@
   },
   "fail_on_comparison_error": true,
   "bytecode_comparison": {
-    "hardhat_config_name": "hardhat/sepolia-config.js",
+    "hardhat_config_name": "hardhat/polygon-config.js",
     "constructor_calldata": {},
     "constructor_args": {}
   }
