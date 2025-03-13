@@ -53,14 +53,12 @@ Given the network that you are targetting, define the intended parameters on a f
   },
   // ...
   "bytecode_comparison": {
-    "hardhat_config_name": "hardhat/holesky-config.js",
     "constructor_calldata": {},
     "constructor_args": {}
   }
 }
 ```
 
-Ensure that the file referenced by `hardhat_config_name` (`hardhat/<network>-config.js`) corresponds to your target network.
 
 ## Run it
 
