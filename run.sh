@@ -7,8 +7,6 @@ then
 fi
 
 source .env
-export GITHUB_API_TOKEN
-export ETHERSCAN_EXPLORER_TOKEN
 
 if [ -z "$GITHUB_API_TOKEN" ]
 then
@@ -16,10 +14,13 @@ then
   exit 1
 fi
 
-if [ -z "$ETHERSCAN_EXPLORER_TOKEN" ]
+if [ -z "$BLOCK_EXPLORER_API_KEY" ]
 then
-  echo "Error: ETHERSCAN_EXPLORER_TOKEN env var is empty"
+  echo "Error: BLOCK_EXPLORER_API_KEY env var is empty"
   exit 1
 fi
+
+export GITHUB_API_TOKEN
+export ETHERSCAN_EXPLORER_TOKEN=$BLOCK_EXPLORER_API_KEY
 
 /root/.local/bin/diffyscan $1
