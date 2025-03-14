@@ -1,12 +1,11 @@
 {
   "contracts": {
-    "0x6C5C467c94bcc594DeE61CFa0e8cCa24d835d894": "StagedProposalProcessor",
     "0x1B6632D1357D26055D6452E3b3BEBd1c1d982e86": "StagedProposalProcessorSetup"
   },
   "explorer_hostname": "api-sepolia.etherscan.io",
   "github_repo": {
     "url": "https://github.com/aragon/staged-proposal-processor-plugin",
-    "commit": "b480f34c40390a929a2c9259d161fc36c88ac419",
+    "commit": "ad73f165e5d7204a37c404d2bd270e401a127dc7",
     "relative_root": ""
   },
   "dependencies": {
