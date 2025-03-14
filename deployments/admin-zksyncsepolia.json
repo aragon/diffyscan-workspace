@@ -1,8 +1,8 @@
 {
   "contracts": {
-    "0x898084951Ce9A625Fba9FCfC364211D3e3596bc7": "AdminSetupZkSync"
+    "0x898084951Ce9A625Fba9FCfC364211D3e3596bc7": "src/zkSync/AdminSetupZkSync.sol:AdminSetupZkSync"
   },
-  "explorer_hostname": "sepolia.era.zksync.dev",
+  "explorer_hostname": "block-explorer-api.sepolia.zksync.dev",
   "github_repo": {
     "url": "https://github.com/aragon/admin-plugin",
     "commit": "81db7a26668551a91077fcc23efc10dd937fcfe7",
