@@ -95,4 +95,4 @@ $(DIFFYSCAN_PARAMS_FILE):
 	$(call ensure_file,$(DEPLOYMENT_PARAMS_FILE))
 	@echo "Reading deployment parameters from $(DEPLOYMENT_PARAMS_FILE)"
 	@echo "Merging 'explorer_token_env_var' onto $(@)"
-	jq '.explorer_token_env_var = $(BLOCK_EXPLORER_API_KEY)' $(DEPLOYMENT_PARAMS_FILE) > $(@)
+	jq '.explorer_token_env_var = "$(BLOCK_EXPLORER_API_KEY)"' $(DEPLOYMENT_PARAMS_FILE) > $(@)
