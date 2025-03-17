@@ -33,8 +33,9 @@ init: .env ##            Check the dependencies and prepare the Docker image
 
 .PHONY: clean
 clean: ##           Clean the generated artifacts
-	docker image rm diffyscan || true
+	rm $(DIFFYSCAN_PARAMS_FILE)
 	rm -Rf ./digest
+	@#docker image rm diffyscan || true
 
 .PHONY: diff-summary
 diff-summary: ##    Show the detected mismatches on the latest run under ./digest
