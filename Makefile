@@ -21,7 +21,12 @@ help: ## Display the current message
 			echo -e "- make $${BASH_REMATCH[1]}    \t$${BASH_REMATCH[3]}" ; \
 		fi ; \
 	done
-	@for dep in $(AVAILABLE_DEPLOYMENTS); do echo -e "- make $$dep\t    Verify using deployments/$$dep.json"; done
+	@for dep in $(AVAILABLE_DEPLOYMENTS); do \
+	    if [ ! -z "$$dep" ]; then \
+			echo -e "- make $$dep\t    Verify using deployments/$$dep.json"; \
+		else echo "" ; \
+		fi \
+	done
 
 ##
 
