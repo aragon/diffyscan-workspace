@@ -1,6 +1,6 @@
 {
   "contracts": {
-    "0xD3De14f34a384662D7a1914D3B90ac223A84B8f8": "StagedProposalProcessorSetup"
+    "0xD3De14f34a384662D7a1914D3B90ac223A84B8f8": "src/StagedProposalProcessorSetupZkSync.sol:StagedProposalProcessorSetup"
   },
   "explorer_hostname": "block-explorer-api.mainnet.zksync.io",
   "github_repo": {

@@ -1,6 +1,6 @@
 {
   "contracts": {
-    "0x01d47D501f348563e0A81f24D0Aa840eb299EFe2": "StagedProposalProcessorSetup"
+    "0x01d47D501f348563e0A81f24D0Aa840eb299EFe2": "src/StagedProposalProcessorSetupZkSync.sol:StagedProposalProcessorSetup"
   },
   "explorer_hostname": "block-explorer-api.sepolia.zksync.dev",
   "github_repo": {
