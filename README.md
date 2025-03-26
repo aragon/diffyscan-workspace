@@ -22,6 +22,7 @@ Available targets:
 - make multisig-sepolia   Verify using deployments/multisig-sepolia.json
 - make spp-sepolia        Verify using deployments/spp-sepolia.json
 - make token-voting-sepolia         Verify using deployments/token-voting-sepolia.json
+[...]
 ```
 
 ### Initialization
