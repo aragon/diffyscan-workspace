@@ -1,12 +1,12 @@
 {
   "contracts": {
-    "0x01d47D501f348563e0A81f24D0Aa840eb299EFe2": "src/StagedProposalProcessorSetupZkSync.sol:StagedProposalProcessorSetup"
+    "0x55E87a7ae6531A713229B03EA5dB532d1be2AFd1": "AdminSetup"
   },
-  "explorer_hostname": "block-explorer-api.sepolia.zksync.dev",
+  "explorer_hostname": "api-holesky.etherscan.io",
   "github_repo": {
-    "url": "https://github.com/aragon/staged-proposal-processor-plugin",
-    "commit": "ad73f165e5d7204a37c404d2bd270e401a127dc7",
-    "relative_root": ""
+    "url": "https://github.com/aragon/admin-plugin",
+    "commit": "81db7a26668551a91077fcc23efc10dd937fcfe7",
+    "relative_root": "packages/contracts"
   },
   "dependencies": {
     "@aragon/osx-commons-contracts": {

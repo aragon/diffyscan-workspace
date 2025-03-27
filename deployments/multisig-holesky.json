@@ -1,12 +1,12 @@
 {
   "contracts": {
-    "0x6C4B808251B859fD0e8c3d2fD3a49121358b92Ef": "StagedProposalProcessorSetup"
+    "0xF03366de8F0A7411C454ba3058247Bc0BB8cb8ee": "MultisigSetup"
   },
-  "explorer_hostname": "api.polygonscan.com",
+  "explorer_hostname": "api-holesky.etherscan.io",
   "github_repo": {
-    "url": "https://github.com/aragon/staged-proposal-processor-plugin",
-    "commit": "ad73f165e5d7204a37c404d2bd270e401a127dc7",
-    "relative_root": ""
+    "url": "https://github.com/aragon/multisig-plugin",
+    "commit": "69874ebe11efd0e9687ba24a7e04ba7fac08012d",
+    "relative_root": "packages/contracts"
   },
   "dependencies": {
     "@aragon/osx-commons-contracts": {
