@@ -6,6 +6,7 @@ POLYGON_DEPLOYMENTS := osx-polygon admin-polygon multisig-polygon token-voting-p
 BASE_DEPLOYMENTS := osx-base admin-base multisig-base token-voting-base
 ARBITRUM_DEPLOYMENTS := osx-arbitrum admin-arbitrum multisig-arbitrum token-voting-arbitrum
 ZKSYNC_DEPLOYMENTS := osx-zksync admin-zksync multisig-zksync token-voting-zksync
+MODE_DEPLOYMENTS := osx-mode admin-mode multisig-mode token-voting-mode
 LINEA_DEPLOYMENTS := osx-linea admin-linea multisig-linea token-voting-linea
 
 # Testnet's
@@ -20,6 +21,7 @@ AVAILABLE_DEPLOYMENTS := \
 	$(BASE_DEPLOYMENTS) $(SEPARATOR) \
 	$(ARBITRUM_DEPLOYMENTS) $(SEPARATOR) \
 	$(ZKSYNC_DEPLOYMENTS) $(SEPARATOR) \
+	$(MODE_DEPLOYMENTS) $(SEPARATOR) \
 	$(LINEA_DEPLOYMENTS) $(SEPARATOR) \
 	\
 	$(SEPOLIA_DEPLOYMENTS) $(SEPARATOR) \
